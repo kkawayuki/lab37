@@ -1,4 +1,4 @@
-// COMSC-210 | lab 36 | Kent Kawashima
+// COMSC-210 | lab 37 | Kent Kawashima
 // IDE used: Visual Studio Code
 #include <iostream>
 #include <fstream>
@@ -9,13 +9,18 @@ using std::map;
 
 int gen_hash_index(string);
 void readInVals(string, map<int, list<string>> &);
+void output100(map<int, list<string>>);
 
 int main()
 {
     map<int, list<string>> hash_table; // intiialze hash table implemented via map
                                        // pairing: int (hash code) , list of string vals
 
-    cout << readInVals("lab-37-data.txt", hash_table);
+    readInVals("lab-37-data.txt", hash_table); //read in all values to hash table
+    output100(hash_table);
+
+    //output first 100
+    
 
     return 0;
 }
@@ -40,9 +45,24 @@ void readInVals(string file, map<int, list<string>> &hash)
     }
 
     string buf;
+
     while (getline(in, buf)) // read each into buf, call function
     {
         hash[gen_hash_index(buf)].push_back(buf); // push each buf string to list index hash_value
+    }
+}
+
+void output100(map<int, list<string>> hash)
+{
+    int count = 0;
+    for(auto it = hash.begin(); it!=hash.end() && count < 100; it++, count++)
+    {
+        cout << "Key: " << it->first << " Values: ";
+        // for(const auto&val : it->second)
+        // {
+        //     cout << val << " ";
+        // }
+        // cout << '\n';
     }
 }
 
