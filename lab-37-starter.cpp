@@ -5,8 +5,9 @@
 #include <map>
 #include <list>
 using namespace std;
-using std::map;
+using std::map; // needed?
 
+// function prototypes
 int gen_hash_index(string);
 void readInVals(string, map<int, list<string>> &);
 void output100(map<int, list<string>>);
@@ -15,6 +16,9 @@ void searchKey(map<int, list<string>>);
 void addKey(map<int, list<string>> &);
 void removeKey(map<int, list<string>> &);
 void modifyKey(map<int, list<string>> &);
+
+// helper function for modification
+char operationSelect();
 
 int main()
 {
@@ -102,7 +106,7 @@ void readInVals(string file, map<int, list<string>> &hash)
     }
 }
 
-void output100(map<int, list<string>> hash)
+void output100(map<int, list<string>> hash) // prints first 100 values, regardless of key, starts at 600ish because my hash is strange
 {
     int count = 0;
     for (auto it = hash.begin(); it != hash.end() && count < 100; it++) // iterate through map
@@ -117,7 +121,7 @@ void output100(map<int, list<string>> hash)
     }
 }
 
-void searchKey(map<int, list<string>> hash)
+void searchKey(map<int, list<string>> hash) // search map for specific key, prints values if found
 {
     int val;
 
@@ -141,7 +145,7 @@ void searchKey(map<int, list<string>> hash)
     }
 }
 
-void addKey(map<int, list<string>> &hash)
+void addKey(map<int, list<string>> &hash) // add a new key to push/pull values to/from
 {
     int val;
 
@@ -161,7 +165,7 @@ void addKey(map<int, list<string>> &hash)
     }
 }
 
-void removeKey(map<int, list<string>> &hash)
+void removeKey(map<int, list<string>> &hash) // remove key (and with it, related values)
 {
     int val;
 
@@ -172,7 +176,8 @@ void removeKey(map<int, list<string>> &hash)
 
     if (search != hash.end())
     {
-        hash.erase(val); //erase node at specified index
+        hash.erase(val); // erase node at specified index
+        cout << "Success.\n";
     }
     else
     {
@@ -180,7 +185,7 @@ void removeKey(map<int, list<string>> &hash)
     }
 }
 
-void modifyKey(map<int, list<string>> &hash)
+void modifyKey(map<int, list<string>> &hash) // I assume to mean modify values corresponding to specific key
 {
     int val;
 
@@ -198,7 +203,33 @@ void modifyKey(map<int, list<string>> &hash)
         }
         cout << '\n';
 
-        //logic for changing values
+        // logic for changing values
+        if (operationSelect() == 'A')
+        {
+            string buf;
+            cin.ignore(); // clear cache
+
+            cout << "Enter string value to append to key: ";
+            getline(cin, buf);
+
+            hash[val].push_back(buf);
+            cout << "Success.\n";
+        }
+        else
+        {
+            int buf;
+            cout << "Enter index of string value to remove: ";
+            cin >> buf;
+
+            int current = 0;
+            for (auto it = hash[val].begin(); it != hash[val].end(); it++, current++) // iterate through hash map to find index
+            {
+                if (current == buf) // if arrived at index
+                {
+                    hash[val].erase(it);
+                }
+            }
+        }
     }
     else
     {
@@ -206,7 +237,17 @@ void modifyKey(map<int, list<string>> &hash)
     }
 }
 
-char operationSelect()
+char operationSelect() // for mode selection on modification
 {
-    cout << "A) Add value to key\nB) Remove value from key";
+    char choice = 'N';
+    while (choice != 'A' && choice != 'B') // input validation loop
+    {
+        cout << "A) Add value to key\nB) Remove value from key\nYour choice --> ";
+        cin >> choice;
+        if (choice != 'A' && choice != 'B')
+        {
+            cout << "ERROR: Valid inputs are 'A' or 'B', try again\n";
+        }
+    }
+    return (choice);
 }
