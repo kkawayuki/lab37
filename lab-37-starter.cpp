@@ -15,7 +15,7 @@ int main()
     cout << (char)b << endl;
 
     // test run, should output 65
-    cout << '\n' << sum_ascii("A");
+    cout << sum_ascii("A");
 
     //(65+65) = 130
     cout << '\n' << sum_ascii("AA");
