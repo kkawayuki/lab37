@@ -16,11 +16,10 @@ int main()
     map<int, list<string>> hash_table; // intiialze hash table implemented via map
                                        // pairing: int (hash code) , list of string vals
 
-    readInVals("lab-37-data.txt", hash_table); //read in all values to hash table
+    readInVals("lab-37-data.txt", hash_table); // read in all values to hash table
     output100(hash_table);
 
-    //output first 100
-    
+    // output first 100
 
     return 0;
 }
@@ -31,7 +30,7 @@ int gen_hash_index(string val)
     for (int i = 0; i < val.size(); i++) // handle as arr of chars
         index += ((int)val[i]);
 
-    return (index % 97); // generate hash index from ascii
+    return (index % 110000); // generate hash index from ascii, needs to be high number due to size of txt
 }
 
 void readInVals(string file, map<int, list<string>> &hash)
@@ -55,14 +54,15 @@ void readInVals(string file, map<int, list<string>> &hash)
 void output100(map<int, list<string>> hash)
 {
     int count = 0;
-    for(auto it = hash.begin(); it!=hash.end() && count < 100; it++, count++)
+    for (auto it = hash.begin(); it != hash.end() && count < 100; it++) // iterate through map
     {
-        cout << "Key: " << it->first << " Values: ";
-        // for(const auto&val : it->second)
-        // {
-        //     cout << val << " ";
-        // }
-        // cout << '\n';
+        cout << "Key: " << it->first << ", Values: ";
+        for (const auto &val : it->second) // iterate through DLL of map
+        {
+            cout << val << " ";
+            count++; // increment value tracker
+        }
+        cout << '\n';
     }
 }
 
