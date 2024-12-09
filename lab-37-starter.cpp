@@ -61,14 +61,6 @@ int main()
     return 0;
 }
 
-/*
-These targets are present in the dataset and can be used for testing:
-536B9DFC93AF
-1DA9D64D02A0
-666D109AA22E
-E1D2665B21EA
-*/
-
 int printMenu()
 {
     int choice;
@@ -228,6 +220,7 @@ void modifyKey(map<int, list<string>> &hash) // I assume to mean modify values c
                 {
                     hash[val].erase(it);
                 }
+                cout << "Success.\n";
             }
         }
     }
@@ -237,7 +230,7 @@ void modifyKey(map<int, list<string>> &hash) // I assume to mean modify values c
     }
 }
 
-char operationSelect() // for mode selection on modification
+char operationSelect() // helper function for mode selection on modification
 {
     char choice = 'N';
     while (choice != 'A' && choice != 'B') // input validation loop
