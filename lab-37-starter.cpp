@@ -1,9 +1,11 @@
 // COMSC-210 | lab 36 | Kent Kawashima
 // IDE used: Visual Studio Code
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 int sum_ascii(string);
+int readInVals(string);
 
 int main()
 {
@@ -14,11 +16,7 @@ int main()
     cout << b << endl;
     cout << (char)b << endl;
 
-    // test run, should output 65
-    cout << sum_ascii("A");
-
-    //(65+65) = 130
-    cout << '\n' << sum_ascii("AA");
+    cout << readInVals("lab-37-data.txt");
 
     return 0;
 }
@@ -30,6 +28,25 @@ int sum_ascii(string val)
         sum += ((int)val[i]);
 
     return (sum);
+}
+
+int readInVals(string file)
+{
+    ifstream in(file);
+
+    if (!in.good()) // confirm file works
+    {
+        cout << "ERROR OPENING FILE";
+        return(0);
+    }
+
+    string buf;
+    int fileTotal = 0;
+
+    while (getline(in, buf)) // read each into buf, call function
+        fileTotal += sum_ascii(buf);
+    
+    return(fileTotal);
 }
 
 /*
