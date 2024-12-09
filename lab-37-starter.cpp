@@ -57,6 +57,14 @@ int main()
     return 0;
 }
 
+/*
+These targets are present in the dataset and can be used for testing:
+536B9DFC93AF
+1DA9D64D02A0
+666D109AA22E
+E1D2665B21EA
+*/
+
 int printMenu()
 {
     int choice;
@@ -144,18 +152,61 @@ void addKey(map<int, list<string>> &hash)
 
     if (search != hash.end())
     {
-        cout << "Key already exists";
+        cout << "ERROR: Key already exists\n";
     }
     else
     {
+        hash[val]; // create key
         cout << "Successfully created key with index: " << val << '\n';
     }
 }
 
 void removeKey(map<int, list<string>> &hash)
 {
+    int val;
+
+    cout << "Input key to remove: ";
+    cin >> val;
+
+    auto search = hash.find(val);
+
+    if (search != hash.end())
+    {
+        hash.erase(val); //erase node at specified index
+    }
+    else
+    {
+        cout << "ERROR: Key doesn't exist!\n";
+    }
 }
 
 void modifyKey(map<int, list<string>> &hash)
 {
+    int val;
+
+    cout << "Input key to modify: ";
+    cin >> val;
+
+    auto search = hash.find(val);
+
+    if (search != hash.end())
+    {
+        cout << "Found, has values: ";
+        for (const auto &val : search->second) // iterate through DLL of map
+        {
+            cout << val << " ";
+        }
+        cout << '\n';
+
+        //logic for changing values
+    }
+    else
+    {
+        cout << "ERROR: Key doesn't exist!\n";
+    }
+}
+
+char operationSelect()
+{
+    cout << "A) Add value to key\nB) Remove value from key";
 }
