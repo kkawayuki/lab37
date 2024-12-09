@@ -16,7 +16,6 @@ void addKey(map<int, list<string>> &);
 void removeKey(map<int, list<string>> &);
 void modifyKey(map<int, list<string>> &);
 
-
 int main()
 {
     map<int, list<string>> hash_table; // intiialze hash table implemented via map
@@ -24,9 +23,8 @@ int main()
 
     readInVals("lab-37-data.txt", hash_table); // read in all values to hash table
 
-    
     int choice = 0;
-    while (choice != 6) //6 to exit loop
+    while (choice != 6) // 6 to exit loop
     {
         choice = printMenu();
         switch (choice)
@@ -62,8 +60,11 @@ int main()
 int printMenu()
 {
     int choice;
-    cout << "HASH TABLE MENU--------\n1) Print first 100 values\n2) Search for key\n3) Add a key\n4) Remove a key\n5) Modify a Key\n6) Exit";
+    cout << "\nHASH TABLE MENU--------\n1) Print first 100 values\n2) Search for key\n3) Add a key\n4) Remove a key\n5) Modify a Key\n6) Exit";
+    cout << "\nYour choice --> ";
     cin >> choice;
+    cout << '\n';
+    return (choice);
 }
 
 int gen_hash_index(string val)
@@ -110,25 +111,51 @@ void output100(map<int, list<string>> hash)
 
 void searchKey(map<int, list<string>> hash)
 {
-    string val;
+    int val;
 
     cout << "Input key to find: ";
     cin >> val;
 
     auto search = hash.find(val);
+
+    if (search != hash.end())
+    {
+        cout << "Found, has values: ";
+        for (const auto &val : search->second) // iterate through DLL of map
+        {
+            cout << val << " ";
+        }
+        cout << '\n';
+    }
+    else
+    {
+        cout << "Could not find a node with that key.\n";
+    }
 }
 
 void addKey(map<int, list<string>> &hash)
 {
+    int val;
 
+    cout << "Input key to add: ";
+    cin >> val;
+
+    auto search = hash.find(val);
+
+    if (search != hash.end())
+    {
+        cout << "Key already exists";
+    }
+    else
+    {
+        cout << "Successfully created key with index: " << val << '\n';
+    }
 }
 
 void removeKey(map<int, list<string>> &hash)
 {
-
 }
 
 void modifyKey(map<int, list<string>> &hash)
 {
-
 }
