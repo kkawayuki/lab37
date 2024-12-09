@@ -2,21 +2,20 @@
 // IDE used: Visual Studio Code
 #include <iostream>
 #include <fstream>
+#include <map>
+#include <list>
 using namespace std;
+using std::map;
 
 int sum_ascii(string);
-int readInVals(string);
+int readInVals(string, map<int, list<string>>&);
 
 int main()
 {
-    char a = 'A';
-    cout << a << endl;
-    cout << (int)a << endl; // prints ASCII values
-    int b = 66;
-    cout << b << endl;
-    cout << (char)b << endl;
+    map<int, list<string>> hash_table; // intiialze hash table implemented via map
+                                       // pairing: int (hash code) , list of string vals
 
-    cout << readInVals("lab-37-data.txt");
+    cout << readInVals("lab-37-data.txt",hash_table);
 
     return 0;
 }
@@ -30,14 +29,14 @@ int sum_ascii(string val)
     return (sum);
 }
 
-int readInVals(string file)
+int readInVals(string file, map<int, list<string>>&hash)
 {
     ifstream in(file);
 
     if (!in.good()) // confirm file works
     {
         cout << "ERROR OPENING FILE";
-        return(0);
+        return (0);
     }
 
     string buf;
@@ -45,8 +44,8 @@ int readInVals(string file)
 
     while (getline(in, buf)) // read each into buf, call function
         fileTotal += sum_ascii(buf);
-    
-    return(fileTotal);
+
+    return (fileTotal);
 }
 
 /*
