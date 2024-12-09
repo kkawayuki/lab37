@@ -7,45 +7,43 @@
 using namespace std;
 using std::map;
 
-int sum_ascii(string);
-int readInVals(string, map<int, list<string>>&);
+int gen_hash_index(string);
+void readInVals(string, map<int, list<string>> &);
 
 int main()
 {
     map<int, list<string>> hash_table; // intiialze hash table implemented via map
                                        // pairing: int (hash code) , list of string vals
 
-    cout << readInVals("lab-37-data.txt",hash_table);
+    cout << readInVals("lab-37-data.txt", hash_table);
 
     return 0;
 }
 
-int sum_ascii(string val)
+int gen_hash_index(string val)
 {
-    int sum = 0;
+    int index = 0;
     for (int i = 0; i < val.size(); i++) // handle as arr of chars
-        sum += ((int)val[i]);
+        index += ((int)val[i]);
 
-    return (sum);
+    return (index % 97); // generate hash index from ascii
 }
 
-int readInVals(string file, map<int, list<string>>&hash)
+void readInVals(string file, map<int, list<string>> &hash)
 {
     ifstream in(file);
 
     if (!in.good()) // confirm file works
     {
         cout << "ERROR OPENING FILE";
-        return (0);
+        return;
     }
 
     string buf;
-    int fileTotal = 0;
-
     while (getline(in, buf)) // read each into buf, call function
-        fileTotal += sum_ascii(buf);
-
-    return (fileTotal);
+    {
+        hash[gen_hash_index(buf)].push_back(buf); // push each buf string to list index hash_value
+    }
 }
 
 /*
