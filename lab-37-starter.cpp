@@ -1,4 +1,4 @@
-// COMSC-210 | lab 37 | Kent Kawashima
+// COMSC-210 | lab 37/38 | Kent Kawashima
 // IDE used: Visual Studio Code
 #include <iostream>
 #include <fstream>
@@ -10,6 +10,12 @@ using std::map;
 int gen_hash_index(string);
 void readInVals(string, map<int, list<string>> &);
 void output100(map<int, list<string>>);
+int printMenu();
+void searchKey(map<int, list<string>>);
+void addKey(map<int, list<string>> &);
+void removeKey(map<int, list<string>> &);
+void modifyKey(map<int, list<string>> &);
+
 
 int main()
 {
@@ -17,11 +23,47 @@ int main()
                                        // pairing: int (hash code) , list of string vals
 
     readInVals("lab-37-data.txt", hash_table); // read in all values to hash table
-    output100(hash_table);
 
-    // output first 100
+    
+    int choice = 0;
+    while (choice != 6) //6 to exit loop
+    {
+        choice = printMenu();
+        switch (choice)
+        {
+        case (1):
+            output100(hash_table);
+            break;
+
+        case (2):
+            searchKey(hash_table);
+            break;
+
+        case (3):
+            addKey(hash_table);
+            break;
+
+        case (4):
+            removeKey(hash_table);
+            break;
+
+        case (5):
+            modifyKey(hash_table);
+            break;
+
+        default: // shouldn't be possible due to range handling in printMenu()
+            break;
+        }
+    }
 
     return 0;
+}
+
+int printMenu()
+{
+    int choice;
+    cout << "HASH TABLE MENU--------\n1) Print first 100 values\n2) Search for key\n3) Add a key\n4) Remove a key\n5) Modify a Key\n6) Exit";
+    cin >> choice;
 }
 
 int gen_hash_index(string val)
@@ -66,10 +108,27 @@ void output100(map<int, list<string>> hash)
     }
 }
 
-/*
-These targets are present in the dataset and can be used for testing:
-536B9DFC93AF
-1DA9D64D02A0
-666D109AA22E
-E1D2665B21EA
-*/
+void searchKey(map<int, list<string>> hash)
+{
+    string val;
+
+    cout << "Input key to find: ";
+    cin >> val;
+
+    auto search = hash.find(val);
+}
+
+void addKey(map<int, list<string>> &hash)
+{
+
+}
+
+void removeKey(map<int, list<string>> &hash)
+{
+
+}
+
+void modifyKey(map<int, list<string>> &hash)
+{
+
+}
